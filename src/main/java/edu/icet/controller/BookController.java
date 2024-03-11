@@ -9,10 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/book")
-@RequiredArgsConstructor
 @CrossOrigin
+@RequiredArgsConstructor
 public class BookController {
 
     final BookService service;
@@ -38,6 +40,11 @@ public class BookController {
     @GetMapping("search/{id}")
     public Book getBookById(@PathVariable Long id){
         return service.getBookById(id);
+    }
+
+    @PostMapping("/addList")
+    public Boolean addList(@RequestBody List<Book> list){
+        return service.addList(list);
     }
 }
 

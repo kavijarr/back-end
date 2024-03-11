@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +52,16 @@ public class BookServiceImpl implements BookService {
     public Book getBookById(Long id) {
         Optional<BookEntity> byId = bookRepository.findById(id);
         return mapper.map(byId,Book.class);
+    }
+
+    @Override
+    public Boolean addList(List<Book> list) {
+        List<BookEntity> entities=new ArrayList<>();
+        list.forEach(book -> {
+
+            entities.add(mapper.map(book,BookEntity.class));
+        });
+        bookRepository.saveAll(entities);
+        return true;
     }
 }
